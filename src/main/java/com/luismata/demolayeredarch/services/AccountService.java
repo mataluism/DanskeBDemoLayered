@@ -2,7 +2,7 @@ package com.luismata.demolayeredarch.services;
 
 import com.luismata.demolayeredarch.exceptions.account.AccountByIdNotFoundException;
 import com.luismata.demolayeredarch.exceptions.customer.InvalidCustomerProvidedException;
-import com.luismata.demolayeredarch.exceptions.withdrawal.WithdrawalInInvalidBalanceException;
+import com.luismata.demolayeredarch.exceptions.withdrawal.WithdrawalInvalidBalanceException;
 import com.luismata.demolayeredarch.exceptions.withdrawal.WithdrawalInsuficientBalanceException;
 import com.luismata.demolayeredarch.model.Account;
 import com.luismata.demolayeredarch.model.Customer;
@@ -50,10 +50,10 @@ public class AccountService {
         throw new AccountByIdNotFoundException("Account with id: " + accountId + " not found!");
     }
 
-    public void withdrawBalance(Withdrawal withdrawalRequested) throws AccountByIdNotFoundException, WithdrawalInsuficientBalanceException, WithdrawalInInvalidBalanceException {
+    public void withdrawBalance(Withdrawal withdrawalRequested) throws AccountByIdNotFoundException, WithdrawalInsuficientBalanceException, WithdrawalInvalidBalanceException {
         long withdrawalAmount = withdrawalRequested.getWithdrawalAmount();
         if( withdrawalAmount <= 0) {
-            throw new WithdrawalInInvalidBalanceException("Invalid balance provided for withdrawal.");
+            throw new WithdrawalInvalidBalanceException("Invalid balance provided for withdrawal.");
         }
         int accountId = withdrawalRequested.getAccountId();
 

@@ -23,6 +23,11 @@ public class Account {
         this.accountOwnerCustomerId = accountOwnerCustomerId;
     }
 
+    public Account(int accountOwnerCustomerId, long balance) {
+        this.accountOwnerCustomerId = accountOwnerCustomerId;
+        this.balance = balance;
+    }
+
     public int getAccountId() {
         return accountId;
     }
