@@ -10,9 +10,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int accountId;
-
     private int accountOwnerCustomerId;
-
     private long balance;
 
 //    private List<int> otherAccountOwnersIds;

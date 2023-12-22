@@ -1,6 +1,6 @@
 package com.luismata.demolayeredarch.services;
 
-import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFoundException;
+import com.luismata.demolayeredarch.exceptions.customer.CustomerByIdNotFoundException;
 import com.luismata.demolayeredarch.model.Customer;
 import com.luismata.demolayeredarch.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

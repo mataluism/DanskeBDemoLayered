@@ -1,17 +1,21 @@
 package com.luismata.demolayeredarch.controllers;
 
-import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFoundException;
-import com.luismata.demolayeredarch.exceptions.InvalidCustomerProvidedException;
+import com.luismata.demolayeredarch.exceptions.customer.InvalidCustomerProvidedException;
 import com.luismata.demolayeredarch.model.Account;
+import com.luismata.demolayeredarch.model.Withdrawal;
 import com.luismata.demolayeredarch.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/account")
@@ -26,12 +30,25 @@ public class AccountController {
     }
 
     @PostMapping("/create-new-account")
-    public Account createNewAccount(@RequestParam int accountOwnerCustomerId) {
+    public ResponseEntity<Account> createNewAccount(@RequestParam int accountOwnerCustomerId) {
+        Account newAccount;
         try {
-            return accountService.createNewAccount(accountOwnerCustomerId);
+            newAccount = accountService.createNewAccount(accountOwnerCustomerId);
         } catch (InvalidCustomerProvidedException exc) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "No customer found.", exc);
+                    HttpStatus.NOT_FOUND, exc.getMessage(), exc);
+        }
+
+        return ResponseEntity.ok().body(newAccount);
+    }
+
+    @PostMapping(path="/withdraw-balance", consumes = "application/json")
+    public void withdraw(@Valid @RequestBody Withdrawal withdrawal) {
+        try {
+            accountService.withdrawBalance(withdrawal);
+        } catch (Exception exc) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, exc.getMessage(), exc);
         }
     }
 }

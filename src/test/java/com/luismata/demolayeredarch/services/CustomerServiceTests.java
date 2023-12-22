@@ -1,6 +1,6 @@
 package com.luismata.demolayeredarch.services;
 
-import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFoundException;
+import com.luismata.demolayeredarch.exceptions.customer.CustomerByIdNotFoundException;
 import com.luismata.demolayeredarch.model.Customer;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
