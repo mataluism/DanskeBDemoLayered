@@ -18,6 +18,9 @@ public class Account {
 //    private List<int> otherAccountOwnersIds;
 
 
+    public Account() {
+    }
+
     public Account(int accountOwnerCustomerId) {
         this.accountOwnerCustomerId = accountOwnerCustomerId;
     }
