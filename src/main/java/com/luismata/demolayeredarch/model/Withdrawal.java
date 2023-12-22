@@ -26,6 +26,8 @@ public class Withdrawal {
 
     // Could be useful to add a customerId as well, for feature of multiple account owners
 
+    public Withdrawal() {
+    }
 
     public Withdrawal(int accountId, long withdrawalAmount) {
         this.accountId = accountId;
