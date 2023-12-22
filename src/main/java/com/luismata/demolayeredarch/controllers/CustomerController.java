@@ -1,6 +1,6 @@
 package com.luismata.demolayeredarch.controllers;
 
-import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFound;
+import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFoundException;
 import com.luismata.demolayeredarch.model.Customer;
 import com.luismata.demolayeredarch.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class CustomerController {
         try {
             return customerService.getCustomerById(customerId);
         }
-        catch (CustomerByIdNotFound exc) {
+        catch (CustomerByIdNotFoundException exc) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Customer not found.", exc);
         }

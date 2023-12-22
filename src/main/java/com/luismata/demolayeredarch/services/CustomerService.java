@@ -1,6 +1,6 @@
 package com.luismata.demolayeredarch.services;
 
-import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFound;
+import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFoundException;
 import com.luismata.demolayeredarch.model.Customer;
 import com.luismata.demolayeredarch.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public Customer getCustomerById(int customerId) throws CustomerByIdNotFound {
+    public Customer getCustomerById(int customerId) throws CustomerByIdNotFoundException {
         Optional<Customer> byId = customerRepository.findById(customerId);
         if(byId.isPresent()) {
             return byId.get();
         }
-        throw new CustomerByIdNotFound("Customer with id: " + customerId + " not found!");
+        throw new CustomerByIdNotFoundException("Customer with id: " + customerId + " not found!");
     }
 
 }

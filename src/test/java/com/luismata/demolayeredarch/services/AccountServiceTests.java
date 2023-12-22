@@ -1,16 +1,20 @@
 package com.luismata.demolayeredarch.services;
 
-import com.luismata.demolayeredarch.exceptions.InvalidCustomerProvidedException;
 import com.luismata.demolayeredarch.model.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class AccountServiceTests {
@@ -41,9 +45,9 @@ public class AccountServiceTests {
         // given
 
         //when
-        Exception exception = assertThrows(InvalidCustomerProvidedException.class, () -> accountService.createNewAccount(accountOwnerCustomerId));
+        Exception exception = assertThrows(HttpClientErrorException.class, () -> accountService.createNewAccount(accountOwnerCustomerId));
 
         //then
-        assertEquals(exception.getMessage(), "Invalid customer id provided." );
+        assertTrue(Objects.requireNonNull(exception.getMessage()).contains("Customer not found."));
     }
 }

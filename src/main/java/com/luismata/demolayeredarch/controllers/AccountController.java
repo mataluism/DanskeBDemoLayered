@@ -1,13 +1,17 @@
 package com.luismata.demolayeredarch.controllers;
 
+import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFoundException;
+import com.luismata.demolayeredarch.exceptions.InvalidCustomerProvidedException;
 import com.luismata.demolayeredarch.model.Account;
 import com.luismata.demolayeredarch.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/account")
@@ -23,6 +27,11 @@ public class AccountController {
 
     @PostMapping("/create-new-account")
     public Account createNewAccount(@RequestParam int accountOwnerCustomerId) {
-        return accountService.createNewAccount(accountOwnerCustomerId);
+        try {
+            return accountService.createNewAccount(accountOwnerCustomerId);
+        } catch (InvalidCustomerProvidedException exc) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No customer found.", exc);
+        }
     }
 }

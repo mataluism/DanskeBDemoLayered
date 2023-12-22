@@ -1,7 +1,6 @@
 package com.luismata.demolayeredarch.services;
 
-import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFound;
-import com.luismata.demolayeredarch.model.Account;
+import com.luismata.demolayeredarch.exceptions.CustomerByIdNotFoundException;
 import com.luismata.demolayeredarch.model.Customer;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -19,7 +18,7 @@ public class CustomerServiceTests {
 
     @ParameterizedTest
     @ValueSource(ints = {1, 2})
-    void givenValidCustomerId_whenCallingGetCustomer_thenGetsCustomer(int customerId) throws CustomerByIdNotFound {
+    void givenValidCustomerId_whenCallingGetCustomer_thenGetsCustomer(int customerId) throws CustomerByIdNotFoundException {
         // given
 
         //when
