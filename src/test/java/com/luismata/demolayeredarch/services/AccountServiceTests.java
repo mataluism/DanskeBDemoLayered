@@ -1,5 +1,6 @@
 package com.luismata.demolayeredarch.services;
 
+import com.luismata.demolayeredarch.exceptions.InvalidCustomerProvidedException;
 import com.luismata.demolayeredarch.model.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;

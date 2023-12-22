@@ -13,6 +13,8 @@ public class AccountService {
 
     public Account createNewAccount(int accountOwnerCustomerId) {
 
+        // Add get customer id and validation
+
         Account newAccount = new Account(accountOwnerCustomerId);
         accountRepository.save(newAccount);
         return newAccount;
