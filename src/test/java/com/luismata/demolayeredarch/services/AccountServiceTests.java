@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class AccountServiceTests {
@@ -21,7 +22,7 @@ public class AccountServiceTests {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"1", "2"})
+    @ValueSource(ints = {1, 2})
     void givenValidCustomer_whenCallingCreateAccount_thenNewAccountForCustomerCreated(int accountOwnerCustomerId) {
         // given
 
@@ -31,5 +32,17 @@ public class AccountServiceTests {
         //then
         assertNotNull(newAccount);
         assertEquals(newAccount.getAccountOwnerCustomerId(), accountOwnerCustomerId);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {100, 222})
+    void givenInvalidCustomer_whenCallingCreateAccount_thenThrowsInvalidCustomerException(int accountOwnerCustomerId) {
+        // given
+
+        //when
+        Exception exception = assertThrows(InvalidCustomerProvidedException.class, () -> accountService.createNewAccount(accountOwnerCustomerId));
+
+        //then
+        assertEquals(exception.getMessage(), "Invalid customer id provided." );
     }
 }
